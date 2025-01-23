@@ -75,12 +75,17 @@
         }
 
         .content-box {
+            display: none;
             background: rgba(255, 255, 255, 0.9);
             padding: 20px;
             border-radius: 15px;
             width: 80%;
             margin: 30px auto;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .content-box.active {
+            display: block;
         }
 
         .piste-map {
@@ -93,10 +98,10 @@
 <body>
     <nav>
         <ul>
-            <li><a href="#about-area">About the Area</a></li>
-            <li><a href="#about-apartment">About Apartment Mauriz</a></li>
-            <li><a href="#snowboarding">Snowboarding in Val Gardena</a></li>
-            <li><a href="#piste-map">Piste Map</a></li>
+            <li><a href="#" onclick="showContent('about-area')">About the Area</a></li>
+            <li><a href="#" onclick="showContent('about-apartment')">About Apartment Mauriz</a></li>
+            <li><a href="#" onclick="showContent('snowboarding')">Snowboarding in Val Gardena</a></li>
+            <li><a href="#" onclick="showContent('piste-map')">Piste Map</a></li>
         </ul>
     </nav>
 
@@ -106,7 +111,7 @@
     </div>
     <div id="map"></div>
 
-    <div id="about-area" class="content-box">
+    <div id="about-area" class="content-box active">
         <h2>About the Area</h2>
         <p>Val Gardena is a famous ski destination in the Dolomites, offering breathtaking scenery and extensive ski slopes.</p>
     </div>
@@ -126,31 +131,11 @@
         <img src="piste-map.jpg" alt="Piste Map" class="piste-map">
     </div>
 
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
-        function updateClock() {
-            var deadline = new Date("2025-01-25T00:00:00+01:00").getTime();
-            var now = new Date().getTime();
-            var timeRemaining = deadline - now;
-
-            if (timeRemaining > 0) {
-                var days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
-                var hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-                var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
-                document.getElementById("clock").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-            } else {
-                document.getElementById("clock").innerHTML = "Let's hit the slopes!";
-            }
+        function showContent(sectionId) {
+            document.querySelectorAll('.content-box').forEach(box => box.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
         }
-
-        setInterval(updateClock, 1000);
-
-        var map = L.map('map').setView([46.5535, 11.7636], 12);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-        }).addTo(map);
-        L.marker([46.5535, 11.7636]).addTo(map).bindPopup("Selva Val Gardena").openPopup();
     </script>
 </body>
 </html>
