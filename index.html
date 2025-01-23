@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* Modern cell-shaded style */
         body {
             background: url('https://www.mauriz.it/images/background.jpg') no-repeat center center fixed;
             background-size: cover;
@@ -60,15 +59,6 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
-        h1 {
-            font-size: 2.5em;
-            color: #2c3e50;
-        }
-
-        h2 {
-            color: #2c3e50;
-        }
-
         #clock {
             font-size: 2em;
             font-weight: bold;
@@ -82,21 +72,6 @@
             margin: 30px auto;
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        section {
-            padding: 60px 20px;
-            margin-top: 20px;
-        }
-
-        a {
-            color: #2980b9;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
         }
     </style>
 </head>
@@ -115,42 +90,35 @@
         <h1>Jungskes 2025 Selva Val Gardena Wintersport Countdown</h1>
         <div id="clock">Loading...</div>
     </div>
-
     <div id="map"></div>
-
-    <section id="about-area">
-        <h2>About the Area</h2>
-        <p>Val Gardena, located in South Tyrol, Italy, is renowned for its stunning landscapes and rich cultural heritage. The valley encompasses three main villages: Ortisei, Santa Cristina, and Selva Val Gardena, each offering unique experiences for visitors. :contentReference[oaicite:0]{index=0}</p>
-    </section>
-
-    <section id="about-apartment">
-        <h2>About Apartment Mauriz</h2>
-        <p>Apartment Mauriz, situated in Selva Val Gardena, provides comfortable accommodations with modern amenities. Its prime location offers easy access to ski lifts and local attractions, making it an ideal choice for your stay. For more details, visit their official website: <a href="https://www.mauriz.it/" target="_blank">Apartments Mauriz</a></p>
-    </section>
-
-    <section id="snowboarding">
-        <h2>Snowboarding in Val Gardena</h2>
-        <p>Val Gardena is a paradise for snowboarders, featuring diverse terrains suitable for all skill levels. The area boasts well-groomed slopes, snow parks, and off-piste opportunities, ensuring an exhilarating experience. :contentReference[oaicite:1]{index=1}</p>
-    </section>
-
-    <section id="piste-map">
-        <h2>Piste Map</h2>
-        <p>Explore the extensive network of slopes in Val Gardena with the interactive piste map. Plan your routes and discover the variety of runs available to maximize your skiing or snowboarding adventure. :contentReference[oaicite:2]{index=2}</p>
-    </section>
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
-        // Countdown timer
         function updateClock() {
             var deadline = new Date("2025-01-25T00:00:00+01:00").getTime();
             var now = new Date().getTime();
             var timeRemaining = deadline - now;
 
-            var days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
-            var hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+            if (timeRemaining > 0) {
+                var days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
 
-            document.getElementById("clock").innerHTML = days + "d " + hours + "h " + minutes + "m "
-::contentReference[oaicite:3]{index=3}
- 
+                document.getElementById("clock").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+            } else {
+                document.getElementById("clock").innerHTML = "Let's hit the slopes!";
+            }
+        }
+
+        setInterval(updateClock, 1000);
+
+        var map = L.map('map').setView([46.5535, 11.7636], 12);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+        }).addTo(map);
+
+        L.marker([46.5535, 11.7636]).addTo(map).bindPopup("Selva Val Gardena").openPopup();
+    </script>
+</body>
+</html>
