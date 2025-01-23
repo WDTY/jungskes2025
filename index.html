@@ -19,17 +19,53 @@
             padding: 0;
         }
 
+        nav {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        nav ul li a:hover {
+            color: #e74c3c;
+        }
+
         .overlay {
             background: rgba(255, 255, 255, 0.8);
             padding: 20px;
             border-radius: 15px;
             display: inline-block;
-            margin-top: 50px;
+            margin-top: 100px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         h1 {
             font-size: 2.5em;
+            color: #2c3e50;
+        }
+
+        h2 {
             color: #2c3e50;
         }
 
@@ -49,6 +85,11 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
+        section {
+            padding: 60px 20px;
+            margin-top: 20px;
+        }
+
         a {
             color: #2980b9;
             text-decoration: none;
@@ -61,11 +102,41 @@
 </head>
 
 <body>
+    <nav>
+        <ul>
+            <li><a href="#about-area">About the Area</a></li>
+            <li><a href="#about-apartment">About Apartment Mauriz</a></li>
+            <li><a href="#snowboarding">Snowboarding in Val Gardena</a></li>
+            <li><a href="#piste-map">Piste Map</a></li>
+        </ul>
+    </nav>
+
     <div class="overlay">
         <h1>Jungskes 2025 Selva Val Gardena Wintersport Countdown</h1>
         <div id="clock">Loading...</div>
     </div>
+
     <div id="map"></div>
+
+    <section id="about-area">
+        <h2>About the Area</h2>
+        <p>Val Gardena, located in South Tyrol, Italy, is renowned for its stunning landscapes and rich cultural heritage. The valley encompasses three main villages: Ortisei, Santa Cristina, and Selva Val Gardena, each offering unique experiences for visitors. :contentReference[oaicite:0]{index=0}</p>
+    </section>
+
+    <section id="about-apartment">
+        <h2>About Apartment Mauriz</h2>
+        <p>Apartment Mauriz, situated in Selva Val Gardena, provides comfortable accommodations with modern amenities. Its prime location offers easy access to ski lifts and local attractions, making it an ideal choice for your stay. For more details, visit their official website: <a href="https://www.mauriz.it/" target="_blank">Apartments Mauriz</a></p>
+    </section>
+
+    <section id="snowboarding">
+        <h2>Snowboarding in Val Gardena</h2>
+        <p>Val Gardena is a paradise for snowboarders, featuring diverse terrains suitable for all skill levels. The area boasts well-groomed slopes, snow parks, and off-piste opportunities, ensuring an exhilarating experience. :contentReference[oaicite:1]{index=1}</p>
+    </section>
+
+    <section id="piste-map">
+        <h2>Piste Map</h2>
+        <p>Explore the extensive network of slopes in Val Gardena with the interactive piste map. Plan your routes and discover the variety of runs available to maximize your skiing or snowboarding adventure. :contentReference[oaicite:2]{index=2}</p>
+    </section>
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
@@ -80,32 +151,6 @@
             var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
             var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
 
-            document.getElementById("clock").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
-
-            if (timeRemaining < 0) {
-                clearInterval(updateInterval);
-                document.getElementById("clock").innerHTML = "Let's hit the slopes!";
-            }
-        }
-
-        var updateInterval = setInterval(updateClock, 1000);
-
-        // Map for Selva Val Gardena
-        var map = L.map('map').setView([46.5535, 11.7636], 12);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-        }).addTo(map);
-
-        var marker = L.marker([46.5535, 11.7636]).addTo(map);
-        marker.bindPopup("<b>Selva Val Gardena</b><br>Amazing slopes & snowboarding fun!").openPopup();
-    </script>
-
-    <div class="overlay">
-        <h2>About Selva Val Gardena</h2>
-        <p>Selva Val Gardena is part of the Dolomiti Superski area, offering 1,200 km of slopes, breathtaking views, and amazing après-ski opportunities.</p>
-        <p>Whether you're carving down the famous Sella Ronda or enjoying a relaxing snowboard session, there's something for everyone!</p>
-        <p>For accommodation details, visit our apartment's website: <a href="https://www.mauriz.it/" target="_blank">Apartments Mauriz</a></p>
-    </div>
-</body>
-
-</html>
+            document.getElementById("clock").innerHTML = days + "d " + hours + "h " + minutes + "m "
+::contentReference[oaicite:3]{index=3}
+ 
