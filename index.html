@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jungskes 2025 Selva Val Gardena Wintersport Countdown</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        /* Modern arty-comic style */
+        body {
+            background: url('https://source.unsplash.com/1600x900/?snow,mountains') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .overlay {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 15px;
+            display: inline-block;
+            margin-top: 50px;
+        }
+
+        h1 {
+            font-size: 3em;
+            text-shadow: 2px 2px #000;
+        }
+
+        #clock {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #FFD700;
+        }
+
+        #map {
+            height: 400px;
+            width: 80%;
+            margin: 30px auto;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="overlay">
+        <h1>Jungskes 2025 Selva Val Gardena Wintersport Countdown</h1>
+        <div id="clock">Loading...</div>
+    </div>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        // Countdown timer
+        function updateClock() {
+            var deadline = new Date("2025-01-25T00:00:00+01:00").getTime();
+            var now = new Date().getTime();
+            var timeRemaining = deadline - now;
+
+            var days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+            document.getElementById("clock").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+
+            if (timeRemaining < 0) {
+                clearInterval(updateInterval);
+                document.getElementById("clock").innerHTML = "Let's hit the slopes!";
+            }
+        }
+
+        var updateInterval = setInterval(updateClock, 1000);
+
+        // Map for Selva Val Gardena
+        var map = L.map('map').setView([46.5535, 11.7636], 12);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+        }).addTo(map);
+
+        var marker = L.marker([46.5535, 11.7636]).addTo(map);
+        marker.bindPopup("<b>Selva Val Gardena</b><br>Amazing slopes & snowboarding fun!").openPopup();
+    </script>
+
+    <div class="overlay">
+        <h2>About Selva Val Gardena</h2>
+        <p>Selva Val Gardena is part of the Dolomiti Superski area, offering 1,200 km of slopes, breathtaking views, and amazing après-ski opportunities.</p>
+        <p>Whether you're carving down the famous Sella Ronda or enjoying a relaxing snowboard session, there's something for everyone!</p>
+    </div>
+</body>
+
+</html>
