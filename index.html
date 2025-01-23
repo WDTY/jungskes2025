@@ -112,6 +112,27 @@
     </div>
     <div id="map"></div>
 
+    <div id="about-area" class="content-box">
+        <h2>About the Area</h2>
+        <p>Selva Val Gardena is a beautiful ski destination in the Dolomites.</p>
+    </div>
+
+    <div id="about-apartment" class="content-box">
+        <h2>About Apartment Mauriz</h2>
+        <p>A cozy apartment located close to the ski lifts.</p>
+        <a href="https://www.muariz.it">Appartments Mauriz</a>a>
+    </div>
+
+    <div id="snowboarding" class="content-box">
+        <h2>Snowboarding in Val Gardena</h2>
+        <p>Experience some of the best snowboarding slopes in the Alps.</p>
+    </div>
+
+    <div id="piste-map" class="content-box">
+        <h2>Piste Map</h2>
+        <p>Check out the detailed ski map of Val Gardena.</p>
+    </div>
+
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
         function updateClock() {
@@ -133,11 +154,15 @@
         }
         updateClock();
 
+        function showContent(id) {
+            document.querySelectorAll('.content-box').forEach(box => box.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+
         var map = L.map('map').setView([46.5535, 11.7636], 12);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
         }).addTo(map);
-
         L.marker([46.5535, 11.7636]).addTo(map).bindPopup("Selva Val Gardena").openPopup();
     </script>
 </body>
