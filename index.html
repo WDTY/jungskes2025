@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            background: url('https://www.mauriz.it/images/background.jpg') no-repeat center center fixed;
+            background: url('https://jungskes2025.netlify.app/bg.jpg') no-repeat center center fixed;
             background-size: cover;
             color: #333;
             font-family: 'Roboto', sans-serif;
@@ -112,31 +112,33 @@
     </div>
     <div id="map"></div>
 
-    <div id="about-area" class="content-box active">
-        <h2>About the Area</h2>
-        <p>Val Gardena is a famous ski destination in the Dolomites, offering breathtaking scenery and extensive ski slopes.</p>
-    </div>
-
-    <div id="about-apartment" class="content-box">
-        <h2>About Apartment Mauriz</h2>
-        <p>Apartment Mauriz offers comfortable accommodations in the heart of Selva Val Gardena, with easy access to ski lifts.</p>
-    </div>
-
-    <div id="snowboarding" class="content-box">
-        <h2>Snowboarding in Val Gardena</h2>
-        <p>With various snow parks and off-piste areas, Val Gardena is a paradise for snowboarders of all skill levels.</p>
-    </div>
-
-    <div id="piste-map" class="content-box">
-        <h2>Piste Map</h2>
-        <img src="piste-map.jpg" alt="Piste Map" class="piste-map">
-    </div>
-
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
-        function showContent(sectionId) {
-            document.querySelectorAll('.content-box').forEach(box => box.classList.remove('active'));
-            document.getElementById(sectionId).classList.add('active');
+        function updateClock() {
+            var deadline = new Date("2025-01-25T00:00:00+01:00").getTime();
+            setInterval(function () {
+                var now = new Date().getTime();
+                var timeRemaining = deadline - now;
+
+                if (timeRemaining > 0) {
+                    var days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+                    var hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+                    document.getElementById("clock").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+                } else {
+                    document.getElementById("clock").innerHTML = "Let's hit the slopes!";
+                }
+            }, 1000);
         }
+        updateClock();
+
+        var map = L.map('map').setView([46.5535, 11.7636], 12);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+        }).addTo(map);
+
+        L.marker([46.5535, 11.7636]).addTo(map).bindPopup("Selva Val Gardena").openPopup();
     </script>
 </body>
 </html>
